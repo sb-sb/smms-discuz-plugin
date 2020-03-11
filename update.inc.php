@@ -8,11 +8,12 @@ $path = './smms_imglist/'.$_FILES['smfile']['name'];
 
 mkdir ('./smms_imglist/',0777,true);
 copy($lastname,$path);
-unlink($lastname);
+
 
 $auth = $_G["cache"]["plugin"]["smms_image"]["secret"];
 $smapi = new SMApi($auth);
 $result = $smapi->Upload($path);
+unlink($path);
 
 if($result["code"] == "image_repeated"){
     $result['data']['url'] = $result["images"];
